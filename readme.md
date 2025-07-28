@@ -1,8 +1,27 @@
-# Download GitHub Desktop
+# Environment Setup
+
+## GitHub Desktop
 https://desktop.github.com/download/
 
-# Download Docker Desktop
+## Docker Desktop
 https://www.docker.com/products/docker-desktop/
 
-# Install NodeJS
+## NodeJS and NPM
 https://nodejs.org/en/download
+
+## VS Code
+https://code.visualstudio.com/
+
+## Create Vite Project
+```
+npm create vite@latest
+```
+
+## Run Vite Project
+```
+cd vite-project
+npm run dev
+```
+
+## Add .editorconfig
+https://editorconfig.org/
