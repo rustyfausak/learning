@@ -18,14 +18,16 @@
 - html attributes with dashes convert to camelcase in javascript
 - access data attributes with the `.dataset` property, which returns a DOMStringMap
 - arrays can have empty slots, which are sometimes treated differently than undefined slots
-- generator functions are like function* generator() and yield results, use them like let something = generator(); something.next().value
-- array.fill only changes values, does not populate
-- event.target is the triggering element, event.currentTarget is the handling element
+- generator functions are like `function* generator()` and `yield` results, use them like `let something = generator(); something.next().value`
+- `array.fill` only changes values, does not populate
+- `event.target` is the triggering element, event.currentTarget is the handling element
 - object property access can be dot notation or bracket notation. dot notation preferred, brackets can be used if accessing a variable object property
-- use array.map() when you need the new array, .foreach() otherwise
+- use `array.map()` when you need the new array, `.foreach()` otherwise
 - constructor invocation must have capital first letter and parentheses
 - arrow functions handle `this` differently than regular function or anonymous functions
 - constructor functions are hoisted; class definitions are not
+- destructuring props like `const {name, email} = person` where person is an object with name and email (and potentially more) props
+- you can rename props when destructuring like `const {name: realName, email} = person` where `person.name` exists and we want `realName` as the variable name
 
 document.getElementById(..)
 element.addEventListener(event, func)
