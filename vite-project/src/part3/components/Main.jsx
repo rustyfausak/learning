@@ -3,11 +3,12 @@ import { useState } from 'react';
 import Recipe from './Recipe';
 import IngredientList from './IngredientList';
 import GetRecipeFromClaude from '../GetRecipeFromClaude.js';
+import recipeExampleMarkdown from '../recipeExampleMarkdown.js';
 
 function Main() {
     const [ingredients, setIngredients] = useState(["all the main spices", "pasta", "ground beef", "tomato paste"]);
     const [isRecipeLoading, setIsRecipeLoading] = useState(false);
-    const [recipeDom, setRecipeDom] = useState(null);
+    const [recipeMarkdown, setRecipeMarkdown] = useState(recipeExampleMarkdown);
 
     /**
      * This style of handling a form submission has been deprecated in React 19.
@@ -34,7 +35,7 @@ function Main() {
     function clearIngredients() {
         if (isRecipeLoading) return;
         setIngredients([]);
-        setRecipeDom(null);
+        setRecipeMarkdown(null);
     }
 
     function removeIngredient(index) {
@@ -44,12 +45,8 @@ function Main() {
 
     function getRecipe() {
         setIsRecipeLoading(true);
-        GetRecipeFromClaude(ingredients).then(recipeMarkdown => {
-            setRecipeDom(
-                <>
-                    {recipeMarkdown}
-                </>
-            );
+        GetRecipeFromClaude(ingredients).then(responseRecipeMarkdown => {
+            setRecipeMarkdown(responseRecipeMarkdown);
             setIsRecipeLoading(false);
         });
     }
@@ -72,7 +69,7 @@ function Main() {
                 clearIngredients={clearIngredients}
                 isRecipeLoading={isRecipeLoading}
             />
-            <Recipe recipeDom={recipeDom} />
+            <Recipe recipeMarkdown={recipeMarkdown} />
         </main>
     );
 }
