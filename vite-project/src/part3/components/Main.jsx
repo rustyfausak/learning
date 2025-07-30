@@ -8,7 +8,8 @@ import recipeExampleMarkdown from '../recipeExampleMarkdown.js';
 function Main() {
     const [ingredients, setIngredients] = useState(["all the main spices", "pasta", "ground beef", "tomato paste"]);
     const [isRecipeLoading, setIsRecipeLoading] = useState(false);
-    const [recipeMarkdown, setRecipeMarkdown] = useState(recipeExampleMarkdown);
+    //const [recipeMarkdown, setRecipeMarkdown] = useState(recipeExampleMarkdown);
+    const [recipeMarkdown, setRecipeMarkdown] = useState(null);
 
     /**
      * This style of handling a form submission has been deprecated in React 19.
