@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 // import React from "react"; React.useState(..);
 import Recipe from './Recipe';
 import IngredientList from './IngredientList';
@@ -10,6 +10,13 @@ function Main() {
     const [isRecipeLoading, setIsRecipeLoading] = useState(false);
     //const [recipeMarkdown, setRecipeMarkdown] = useState(recipeExampleMarkdown);
     const [recipeMarkdown, setRecipeMarkdown] = useState(null);
+    const recipeSection = useRef(null);
+
+    useEffect(() => {
+        if (recipeMarkdown && recipeSection && recipeSection.current) {
+            recipeSection.current.scrollIntoView({behavior: "smooth"});
+        }
+    }, [recipeMarkdown]);
 
     /**
      * This style of handling a form submission has been deprecated in React 19.
@@ -64,6 +71,7 @@ function Main() {
                 <button disabled={isRecipeLoading}>Add Ingredient</button>
             </form>
             <IngredientList
+                ref={recipeSection}
                 ingredients={ingredients}
                 getRecipe={getRecipe}
                 removeIngredient={removeIngredient}
