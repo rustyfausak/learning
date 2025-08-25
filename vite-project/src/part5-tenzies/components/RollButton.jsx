@@ -1,7 +1,7 @@
 export default function RollButton (props) {
     return (
         <button
-            onClick={props.onRoll}
+            onClick={props.onClick}
             className="roll-button"
         >
             Roll
