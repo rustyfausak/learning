@@ -1,4 +1,4 @@
-html, body {
+.btn, h1 {
     font-family: "Geo", sans-serif;
 }
 .popup-backdrop {
@@ -12,22 +12,22 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.popup {
-    background-color: var(--bs-secondary-bg);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 3px 3px 1px 0 var(--bs-tertiary-bg);
-    border: 2px solid var(--bs-secondary-color);
-    flex-basis: 50%;
-}
-.popup-body {
-    overflow-y: scroll;
-    max-height: 60vh;
-}
-.popup-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    margin-top: 1rem;
+    .popup {
+        background-color: var(--bs-secondary-bg);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 3px 3px 1px 0 var(--bs-tertiary-bg);
+        border: 2px solid var(--bs-secondary-color);
+        flex-basis: 50%;
+        .popup-body {
+            overflow-y: scroll;
+            max-height: 60dvh;
+        }
+        .popup-footer {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+    }
 }

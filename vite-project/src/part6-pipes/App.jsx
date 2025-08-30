@@ -3,17 +3,24 @@ import Splash from './components/Splash.jsx';
 import Options from './components/popups/Options.jsx';
 import Setup from './components/Setup.jsx';
 import Game from './components/Game.jsx';
+import Run from './classes/Run.jsx';
+import Randomizer from './classes/Randomizer.jsx';
+import StandardDeck from './decks/Standard.jsx';
+import Pause from './components/popups/Pause.jsx';
 
 export default function App() {
     const version = '0.0.1';
     const [appState, setAppState] = useState('splash');
     const [popups, setPopups] = useState([]);
+    const [run, setRun] = useState(null);
+    const [seed, setSeed] = useState('');
 
     function actionSplash() {
         setAppState('splash');
     }
 
     function actionSetup() {
+        setSeed(Math.random().toString(36).substring(2, 10).toUpperCase());
         setAppState('setup');
     }
 
@@ -25,8 +32,19 @@ export default function App() {
         setPopups((oldPopups) => oldPopups.filter(p => p !== name));
     }
 
-    function actionGame() {
+    function actionStartGame() {
+        setRun(new Run({
+            deck: new StandardDeck(),
+            randomizer: new Randomizer(seed),
+        }));
         setAppState('game');
+    }
+
+    function actionEndGame() {
+        console.log("actionEndGame");
+        setRun(null);
+        setPopups(() => []);
+        setAppState('splash');
     }
 
     return (
@@ -39,16 +57,25 @@ export default function App() {
             />
             <Setup
                 appState={ appState }
+                seed={ seed }
+                setSeed={ setSeed }
                 actionSplash={ actionSplash }
-                actionGame={ actionGame }
+                actionStartGame={ actionStartGame }
             />
             <Game
                 appState={ appState }
                 actionSplash={ actionSplash }
+                actionOpenPause={ () => actionAddPopup('pause') }
+                run={ run }
             />
             <Options
                 popups={ popups }
                 actionCloseOptions={ () => actionRemovePopup('options') }
+                />
+            <Pause
+                popups={ popups }
+                actionClosePause={ () => actionRemovePopup('pause') }
+                actionEndGame={ actionEndGame }
             />
         </>
     );

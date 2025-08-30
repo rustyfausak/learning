@@ -13,8 +13,8 @@ export default function Splash(props) {
                 <div className="version">v{ props.version }</div>
                 <div className="menu">
                     <div className="menu-inner">
-                        <a className="btn btn-primary" onClick={ props.actionSetup }>Play</a>
-                        <a className="btn btn-warning" onClick={ props.actionOpenOptions }>Options</a>
+                        <button className="btn btn-primary" onClick={ props.actionSetup }>Play</button>
+                        <button className="btn btn-warning" onClick={ props.actionOpenOptions }>Options</button>
                         <a href="../" className="btn btn-danger">Quit</a>
                     </div>
                 </div>

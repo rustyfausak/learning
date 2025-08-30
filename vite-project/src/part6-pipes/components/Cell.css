@@ -1,0 +1,6 @@
+.cell {
+    background-color: var(--bs-tertiary-bg);
+    aspect-ratio: 1 / 1;
+    border-radius: 2px;
+    width: 100%;
+}
