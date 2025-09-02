@@ -1,7 +1,9 @@
 import CellPart from "./CellPart";
+import { createToken } from './../funcs.jsx';
 
 export default class Cell {
     constructor(tile) {
+        this.id = createToken();
         this.tile = tile;
         this.rotation = 0;
         this.top_left = new CellPart();

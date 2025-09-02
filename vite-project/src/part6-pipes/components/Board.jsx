@@ -1,7 +1,17 @@
 import './Board.css';
 import Cell from './Cell.jsx';
+import DroppableCell from './DroppableCell.jsx';
+import { DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 
 export default function Board(props) {
+    const keyboardSensor = useSensor(KeyboardSensor);
+    const pointerSensor = useSensor(PointerSensor, {
+        activationConstraint: {
+            distance: 10,
+        },
+    });
+    const sensors = useSensors(pointerSensor, keyboardSensor);
+
     const cells = [];
     let index = 0;
     for (let y = 0; y < props.run.board.rows; y++) {
@@ -11,7 +21,7 @@ export default function Board(props) {
                 cells.push(
                     <Cell
                         key={ key }
-                        is_source={ props.run.board.sourceRowIndexes.includes(y) }
+                        isSource={ props.run.board.sourceRowIndexes.includes(y) }
                     />
                 );
             }
@@ -19,7 +29,7 @@ export default function Board(props) {
                 cells.push(
                     <Cell
                         key={ key }
-                        is_dest={ props.run.board.destRowIndexes.includes(y) }
+                        isDest={ props.run.board.destRowIndexes.includes(y) }
                     />
                 );
             }
@@ -27,19 +37,12 @@ export default function Board(props) {
                 const cell = props.run.board.cells[index];
                 const cellIndex = index;
                 cells.push(
-                    <Cell
+                    <DroppableCell
                         key={ key }
                         cell={ cell }
-                        rotateCell={ (e) => {
-                            e.preventDefault();
-                            props.run.rotateCell(cellIndex, false);
-                            props.syncRun();
-                        } }
-                        rotateCellReverse={ (e) => {
-                            e.preventDefault();
-                            props.run.rotateCell(cellIndex, true);
-                            props.syncRun();
-                        } }
+                        cellIndex={ cellIndex }
+                        run={ props.run }
+                        syncRun={ props.syncRun }
                     />
                 );
                 index++;
@@ -52,9 +55,11 @@ export default function Board(props) {
     };
     return (
         <div className="board">
-            <div className="board-grid" style={ boardStyle }>
-                { cells }
-            </div>
+            <DndContext sensors={sensors}>
+                <div className="board-grid" style={ boardStyle }>
+                    { cells }
+                </div>
+            </DndContext>
         </div>
     );
 }

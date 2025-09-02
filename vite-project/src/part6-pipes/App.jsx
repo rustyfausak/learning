@@ -7,6 +7,7 @@ import Run from './classes/Run.jsx';
 import Randomizer from './classes/Randomizer.jsx';
 import StandardDeck from './decks/Standard.jsx';
 import Pause from './components/popups/Pause.jsx';
+import { createToken } from './funcs.jsx';
 
 export default function App() {
     const version = '0.0.1';
@@ -20,7 +21,7 @@ export default function App() {
     }
 
     function actionSetup() {
-        setSeed(Math.random().toString(36).substring(2, 10).toUpperCase());
+        setSeed(createToken());
         setAppState('setup');
     }
 

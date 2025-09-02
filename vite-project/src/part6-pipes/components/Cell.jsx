@@ -1,7 +1,8 @@
 import './Cell.css';
+import { useDraggable } from '@dnd-kit/core';
 
 export default function Cell(props) {
-    if (props.is_source) {
+    if (props.isSource) {
         return (
             <div className="cell cell-source">
                 <div className="cell-title">Start</div>
@@ -10,7 +11,7 @@ export default function Cell(props) {
             </div>
         );
     }
-    if (props.is_dest) {
+    if (props.isDest) {
         return (
             <div className="cell cell-dest">
                 <div className="cell-title">Finish</div>
@@ -20,8 +21,24 @@ export default function Cell(props) {
         );
     }
     if (props.cell) {
+        const { attributes, listeners, setNodeRef, transform } = useDraggable({
+            id: `draggable-${props.cell.id}`,
+        });
+        const style = transform ? {
+            transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+            zIndex: 1000,
+            border: '1px dashed #ffc107',
+        } : undefined;
         return (
-            <div className="cell" onClick={ props.rotateCell } onContextMenu={ props.rotateCellReverse }>
+            <div
+                ref={ setNodeRef }
+                style={ style }
+                {...listeners}
+                {...attributes}
+                className="cell"
+                onClick={ props.rotateCell }
+                onContextMenu={ props.rotateCellReverse }
+            >
                 <div className="cell-grid">
                     <div className={ "cell-part cell-top-left" + (props.cell.top_left.is_pipe ? ' cell-pipe' : '') }></div>
                     <div className={ "cell-part cell-top-center" + (props.cell.top_center.is_pipe ? ' cell-pipe' : '') }></div>

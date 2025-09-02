@@ -2,6 +2,7 @@
     background-color: #0e6dfe!important;
 }
 .cell {
+    touch-action: none;
     background-color: var(--cell-bg);
     cursor: pointer;
     display: flex;
