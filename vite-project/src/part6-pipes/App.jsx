@@ -41,10 +41,13 @@ export default function App() {
     }
 
     function actionEndGame() {
-        console.log("actionEndGame");
         setRun(null);
         setPopups(() => []);
         setAppState('splash');
+    }
+
+    function syncRun() {
+        setRun(Object.assign(Object.create(Object.getPrototypeOf(run)), run));
     }
 
     return (
@@ -67,6 +70,7 @@ export default function App() {
                 actionSplash={ actionSplash }
                 actionOpenPause={ () => actionAddPopup('pause') }
                 run={ run }
+                syncRun={ syncRun }
             />
             <Options
                 popups={ popups }

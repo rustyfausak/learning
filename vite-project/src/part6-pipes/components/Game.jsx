@@ -7,7 +7,7 @@ export default function Game(props) {
     }
 
     function pump() {
-        console.log(props.run.randomizer.next());
+        console.log("Pump!");
     }
 
     return (
@@ -22,6 +22,7 @@ export default function Game(props) {
                 <div className="main">
                     <Board
                         run={ props.run }
+                        syncRun={ props.syncRun }
                     />
                 </div>
                 <div className="footer">

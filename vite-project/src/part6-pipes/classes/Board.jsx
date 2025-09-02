@@ -1,12 +1,14 @@
 import Cell from './Cell.jsx';
 
 export default class Board {
-    constructor({deck, rows, cols, randomizer}) {
+    constructor({deck, randomizer}) {
         this.deck = deck;
-        this.rows = rows;
-        this.cols = cols;
+        this.rows = 5;
+        this.cols = 10;
         this.randomizer = randomizer;
         this.cells = [];
+        this.sourceRowIndexes = [];
+        this.destRowIndexes = [];
         deck.forEach(tile => this.cells.push(new Cell(tile)));
     }
 
@@ -16,7 +18,7 @@ export default class Board {
             [this.cells[i], this.cells[j]] = [this.cells[j], this.cells[i]];
         }
         for (let i = 0; i < this.cells.length; i++) {
-            this.cells[i].rotation = Math.floor(this.randomizer.next() * 4);
+            this.cells[i].rotate(Math.floor(this.randomizer.next() * 4));
         }
     }
 }

@@ -5,8 +5,6 @@ export default class Run {
         deck = null,
         gold = 100,
         level = 1,
-        rows = 5,
-        cols = 10,
         randomizer = null,
     }) {
         this.deck = deck;
@@ -15,8 +13,6 @@ export default class Run {
         this.randomizer = randomizer;
         this.board = new Board({
             deck: this.deck,
-            rows: rows,
-            cols: cols,
             randomizer: this.randomizer,
         });
         this.advanceLevel(1);
@@ -30,5 +26,11 @@ export default class Run {
             this.level += 1;
         }
         this.board.shuffle();
+        this.board.sourceRowIndexes = [2];
+        this.board.destRowIndexes = [2];
+    }
+
+    rotateCell(index, ccw = false) {
+        this.board.cells[index].rotate(ccw ? -1 : 1);
     }
 }

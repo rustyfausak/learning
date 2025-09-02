@@ -3,14 +3,11 @@
     margin: 1rem;
     display: flex;
     align-items: stretch;
+    padding: 1rem;
+    background-color: var(--bs-secondary-bg);
+    border-radius: 1rem;
     .board-grid {
-        flex-grow: 1;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        background-color: var(--bs-secondary-bg);
         display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-        gap: 2px;
+        flex-grow: 1;
     }
 }

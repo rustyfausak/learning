@@ -16,7 +16,7 @@ export default function Standard() {
 
     // I
     for (let i = 0; i < 12; i++) {
-        deck.push(new Tile({name: 'Straight', top: true, left: true}));
+        deck.push(new Tile({name: 'Straight', top: true, bottom: true}));
     }
 
     // L
@@ -25,8 +25,13 @@ export default function Standard() {
     }
 
     // Dead ends
+    for (let i = 0; i < 0; i++) {
+        deck.push(new Tile({name: 'Deadend', top: true}));
+    }
+
+    // Blanks
     for (let i = 0; i < 5; i++) {
-        deck.push(new Tile({name: 'Stop', top: true}));
+        deck.push(new Tile({name: 'Blank'}));
     }
 
     return deck;
