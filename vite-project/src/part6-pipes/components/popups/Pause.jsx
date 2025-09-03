@@ -11,7 +11,7 @@ export default function Pause(props) {
                     <div className="popup-body">
                     </div>
                     <div className="popup-footer">
-                        <button className="btn btn-danger" onClick={ props.actionEndGame }>Quit</button>
+                        <button className="btn btn-danger" onClick={ props.actionEndGame }>End Game</button>
                         <button className="btn btn-warning" onClick={ props.actionClosePause }>Resume</button>
                     </div>
                 </div>

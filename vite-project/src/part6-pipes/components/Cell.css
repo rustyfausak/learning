@@ -1,12 +1,17 @@
 .water {
     background-color: #0e6dfe!important;
 }
+.droppable, .cell {
+    border: 2px solid var(--bs-body-bg);
+}
+.droppable .cell {
+    border: 0;
+}
 .cell {
     touch-action: none;
     background-color: var(--cell-bg);
     cursor: pointer;
     display: flex;
-    border: 1px solid var(--bs-body-bg);
     position: relative;
     &.cell-empty {
         background-color: var(--bs-secondary-bg);
@@ -14,7 +19,8 @@
     }
     .cell-title {
         position: absolute;
-        top: -16px;
+        top: 0;
+        line-height: 1;
         left: 50%;
         transform: translate(-50%, 0);
         font-size: 12px;
@@ -70,10 +76,10 @@
             top: 33%;
         }
         .cell-connector-left {
-            left: 0;
+            right: 0;
         }
         .cell-connector-right {
-            right: 0;
+            left: 0;
         }
     }
     &.cell-dest {

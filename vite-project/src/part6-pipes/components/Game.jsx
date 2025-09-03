@@ -27,8 +27,10 @@ export default function Game(props) {
                 </div>
                 <div className="footer">
                     <button className="btn btn-secondary" disabled={ 'disabled' }>Undo</button>
-                    <div className="gold text-warning">Gold: { props.run.gold }</div>
-                    <button className="btn btn-primary" onClick={ pump }>Pump!</button>
+                    <button className="btn btn-primary" onClick={ () => {
+                        props.run.pump();
+                        props.syncRun();
+                    } }>Pump!</button>
                 </div>
             </div>
         </>

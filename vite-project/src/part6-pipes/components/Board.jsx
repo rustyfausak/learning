@@ -21,7 +21,9 @@ export default function Board(props) {
                 cells.push(
                     <Cell
                         key={ key }
-                        isSource={ props.run.board.sourceRowIndexes.includes(y) }
+                        side="left"
+                        isSource={ props.run.board.sourceIndexesLeft.includes(y) }
+                        isDest={ props.run.board.destIndexesLeft.includes(y) }
                     />
                 );
             }
@@ -29,7 +31,9 @@ export default function Board(props) {
                 cells.push(
                     <Cell
                         key={ key }
-                        isDest={ props.run.board.destRowIndexes.includes(y) }
+                        side="right"
+                        isSource={ props.run.board.sourceIndexesRight.includes(y) }
+                        isDest={ props.run.board.destIndexesRight.includes(y) }
                     />
                 );
             }
@@ -55,7 +59,16 @@ export default function Board(props) {
     };
     return (
         <div className="board">
-            <DndContext sensors={sensors}>
+            <DndContext
+                sensors={ sensors }
+                onDragEnd={ (e) => {
+                    props.run.swapCells(
+                        e.active.id,
+                        e.over.id
+                    );
+                    props.syncRun();
+                } }
+            >
                 <div className="board-grid" style={ boardStyle }>
                     { cells }
                 </div>

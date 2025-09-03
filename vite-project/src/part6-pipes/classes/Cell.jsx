@@ -6,15 +6,16 @@ export default class Cell {
         this.id = createToken();
         this.tile = tile;
         this.rotation = 0;
-        this.top_left = new CellPart();
-        this.top_center = new CellPart(this.tile.top);
-        this.top_right = new CellPart();
-        this.middle_left = new CellPart(this.tile.left);
-        this.middle_center = new CellPart(this.tile.top || this.tile.bottom || this.tile.left || this.tile.right);
-        this.middle_right = new CellPart(this.tile.right);
-        this.bottom_left = new CellPart();
-        this.bottom_center = new CellPart(this.tile.bottom);
-        this.bottom_right = new CellPart();
+        this.hasWater = false;
+        this.topLeft = new CellPart();
+        this.topCenter = new CellPart(this.tile.top);
+        this.topRight = new CellPart();
+        this.middleLeft = new CellPart(this.tile.left);
+        this.middleCenter = new CellPart(this.tile.top || this.tile.bottom || this.tile.left || this.tile.right);
+        this.middleRight = new CellPart(this.tile.right);
+        this.bottomLeft = new CellPart();
+        this.bottomCenter = new CellPart(this.tile.bottom);
+        this.bottomRight = new CellPart();
     }
 
     rotate(times) {
@@ -26,25 +27,25 @@ export default class Cell {
 
     rotateCW() {
         [
-            this.top_left,
-            this.top_center,
-            this.top_right,
-            this.middle_left,
-            this.middle_center,
-            this.middle_right,
-            this.bottom_left,
-            this.bottom_center,
-            this.bottom_right,
+            this.topLeft,
+            this.topCenter,
+            this.topRight,
+            this.middleLeft,
+            this.middleCenter,
+            this.middleRight,
+            this.bottomLeft,
+            this.bottomCenter,
+            this.bottomRight,
         ] = [
-            this.bottom_left,
-            this.middle_left,
-            this.top_left,
-            this.bottom_center,
-            this.middle_center,
-            this.top_center,
-            this.bottom_right,
-            this.middle_right,
-            this.top_right,
+            this.bottomLeft,
+            this.middleLeft,
+            this.topLeft,
+            this.bottomCenter,
+            this.middleCenter,
+            this.topCenter,
+            this.bottomRight,
+            this.middleRight,
+            this.topRight,
         ];
         this.rotation = (this.rotation + 1) % 4;
     }

@@ -6,7 +6,7 @@ export default function DroppableCell(props) {
         id: `droppable-${props.cellIndex}`,
     });
     const droppableStyle = {
-        border: isOver ? '1px dashed #198754' : '',
+        border: isOver ? '2px dashed #198754' : '',
     };
     return (
         <div
@@ -15,6 +15,7 @@ export default function DroppableCell(props) {
             style={ droppableStyle }>
             <Cell
                 cell={ props.cell }
+                cellIndex={ props.cellIndex }
                 rotateCell={ (e) => {
                     e.preventDefault();
                     props.run.rotateCell(props.cellIndex, false);
