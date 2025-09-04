@@ -1,5 +1,12 @@
+html, body {
+    font-family: "Space Grotesk", sans-serif;
+}
 .btn, h1 {
     font-family: "Geo", sans-serif;
+}
+.text-bg-purple {
+    background-color: rgba(164, 13, 240);
+    color: white;
 }
 .popup-backdrop {
     position: fixed;

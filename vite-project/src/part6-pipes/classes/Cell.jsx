@@ -6,6 +6,7 @@ export default class Cell {
         this.id = createToken();
         this.tile = tile;
         this.rotation = 0;
+        this.initialRotation = 0;
         this.hasWater = false;
         this.topLeft = new CellPart();
         this.topCenter = new CellPart(this.tile.top);
@@ -18,10 +19,69 @@ export default class Cell {
         this.bottomRight = new CellPart();
     }
 
-    rotate(times) {
+    isRotated() {
+        return this.getNumRotations() > 0;
+    }
+
+    getNumRotations() {
+        if (this.rotation === this.initialRotation) {
+            return 0;
+        }
+        let mod = 4;
+        if (this.isOneAxisSymmetric()) {
+            mod = 2;
+        }
+        if (this.isTwoAxisSymmetric()) {
+            mod = 1;
+        }
+        const rotations = Math.min(
+            (mod + (this.rotation - this.initialRotation)) % mod,
+            (mod + (this.initialRotation - this.rotation)) % mod,
+        );
+        return rotations;
+    }
+
+    isOneAxisSymmetric() {
+        return (
+            // left/right
+            this.topLeft.isPipe === this.topRight.isPipe &&
+            this.middleLeft.isPipe === this.middleRight.isPipe &&
+            this.bottomLeft.isPipe === this.bottomRight.isPipe &&
+            // top/bottom
+            this.bottomLeft.isPipe === this.topLeft.isPipe &&
+            this.bottomCenter.isPipe === this.topCenter.isPipe &&
+            this.bottomRight.isPipe === this.topRight.isPipe
+        );
+    }
+
+    isTwoAxisSymmetric() {
+        return (
+            // left/right
+            this.topLeft.isPipe === this.topRight.isPipe &&
+            this.middleLeft.isPipe === this.middleRight.isPipe &&
+            this.bottomLeft.isPipe === this.bottomRight.isPipe &&
+            // top/bottom
+            this.bottomLeft.isPipe === this.topLeft.isPipe &&
+            this.bottomCenter.isPipe === this.topCenter.isPipe &&
+            this.bottomRight.isPipe === this.topRight.isPipe &&
+            // side/side
+            this.topLeft.isPipe === this.bottomLeft.isPipe &&
+            this.topCenter.isPipe === this.middleLeft.isPipe &&
+            this.topRight.isPipe === this.topLeft.isPipe
+        );
+    }
+
+    resetRotation() {
+        this.rotate(this.initialRotation - this.rotation, true);
+    }
+
+    rotate(times, setInitial = false) {
         times = (4 + (times % 4)) % 4;
         for (let i = 0; i < times; i++) {
             this.rotateCW();
+        }
+        if (setInitial) {
+            this.initialRotation = this.rotation;
         }
     }
 

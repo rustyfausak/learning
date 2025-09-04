@@ -22,8 +22,10 @@ export default function Board(props) {
                     <Cell
                         key={ key }
                         side="left"
+                        run={ props.run }
                         isSource={ props.run.board.sourceIndexesLeft.includes(y) }
                         isDest={ props.run.board.destIndexesLeft.includes(y) }
+                        isWatered={ props.run.board.wateredIndexesLeft.includes(y) }
                     />
                 );
             }
@@ -32,8 +34,10 @@ export default function Board(props) {
                     <Cell
                         key={ key }
                         side="right"
+                        run={ props.run }
                         isSource={ props.run.board.sourceIndexesRight.includes(y) }
                         isDest={ props.run.board.destIndexesRight.includes(y) }
+                        isWatered={ props.run.board.wateredIndexesRight.includes(y) }
                     />
                 );
             }

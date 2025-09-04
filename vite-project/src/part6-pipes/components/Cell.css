@@ -1,4 +1,4 @@
-.water {
+.bg-water {
     background-color: #0e6dfe!important;
 }
 .droppable, .cell {
@@ -16,6 +16,44 @@
     &.cell-empty {
         background-color: var(--bs-secondary-bg);
         border: 0;
+    }
+    .cell-icon {
+        visibility: hidden;
+    }
+    &.watered {
+        .cell-icon {
+            visibility: visible;
+        }
+        .cell-ball {
+            background-color: #0e6dfe!important;
+            background-image: url('./wave-haikei.png');
+            background-position: top 0 right 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            animation-name: water-effect;
+            animation-fill-mode: forwards;
+            animation-duration: 5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        .cell-connector {
+            background-color: #0e6dfe!important;
+        }
+    }
+    .cell-flag {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+    }
+    .cell-flag-topleft {
+        top: 0;
+        left: 0;
+        clip-path: polygon(0 0, 0 100%, 100% 0);
+    }
+    .cell-flag-topright {
+        top: 0;
+        right: 0;
+        clip-path: polygon(100% 0, 0 0, 100% 100%);
     }
     .cell-title {
         position: absolute;
@@ -50,6 +88,13 @@
         .cell-connector {
             background-color: var(--pipe-bg);
         }
+        .cell-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 900;
+        }
         .cell-ball {
             position: absolute;
             width: 60%;
@@ -57,17 +102,6 @@
             border-radius: 50%;
             top: 20%;
             left: 20%;
-            &.water-flow {
-                background-image: url('./wave-haikei.png');
-                background-position: top 0 right 0;
-                background-size: cover;
-                background-repeat: no-repeat;
-                animation-name: water-effect;
-                animation-fill-mode: forwards;
-                animation-duration: 5s;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-            }
         }
         .cell-connector {
             position: absolute;

@@ -4,17 +4,18 @@ import { useDraggable } from '@dnd-kit/core';
 export default function Cell(props) {
     if (props.isSource) {
         return (
-            <div className="cell cell-source">
+            <div className="cell cell-source watered">
                 <div className="cell-title">Source</div>
-                <div className="cell-ball water water-flow"></div>
-                <div className={ "cell-connector water cell-connector-" + props.side }></div>
+                <div className="cell-ball"></div>
+                <div className={ "cell-connector cell-connector-" + props.side }></div>
             </div>
         );
     }
     if (props.isDest) {
         return (
-            <div className="cell cell-dest">
+            <div className={ "cell cell-dest" + (props.isWatered ? " watered" : '') }>
                 <div className="cell-title">Target</div>
+                <div className="cell-icon">✔</div>
                 <div className="cell-ball"></div>
                 <div className={ "cell-connector cell-connector-" + props.side }></div>
             </div>
@@ -39,7 +40,7 @@ export default function Cell(props) {
             if (props.cell[part].isPipe) {
                 classNames.push("cell-pipe");
                 if (props.cell.hasWater) {
-                    classNames.push('water');
+                    classNames.push('bg-water');
                 }
             }
             cellParts.push(
@@ -56,6 +57,8 @@ export default function Cell(props) {
                 onClick={ props.rotateCell }
                 onContextMenu={ props.rotateCellReverse }
             >
+                { props.run.isCellRotated(props.cellIndex) && <div className="cell-flag cell-flag-topleft text-bg-info"></div> }
+                { props.run.isCellSwapped(props.cellIndex) && <div className="cell-flag cell-flag-topright text-bg-purple"></div> }
                 <div className="cell-grid">
                     { cellParts }
                 </div>

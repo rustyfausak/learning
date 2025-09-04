@@ -16,6 +16,7 @@ export default function DroppableCell(props) {
             <Cell
                 cell={ props.cell }
                 cellIndex={ props.cellIndex }
+                run={ props.run }
                 rotateCell={ (e) => {
                     e.preventDefault();
                     props.run.rotateCell(props.cellIndex, false);
