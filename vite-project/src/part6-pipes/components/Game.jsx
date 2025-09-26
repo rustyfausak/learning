@@ -13,7 +13,7 @@ export default function Game(props) {
         <>
             <div className="game">
                 <div className="header">
-                    <div>
+                    <div className="level-info">
                         <h1>Level { props.run.level.name }</h1>
                         <div>Goal: Connect and score at least <code>{ props.run.getRequiredScore() }</code> points</div>
                     </div>
@@ -35,7 +35,7 @@ export default function Game(props) {
                             props.syncRun();
                         } }>Undo</button>
                     </div>
-                    <div className="d-flex gap-2">
+                    <div className="d-flex gap-2 align-items-stretch">
                         <Popover
                             className="score-box points-box"
                             content={
@@ -65,6 +65,7 @@ export default function Game(props) {
                                 + scoreSummary.points.connections
                                 + scoreSummary.points.overflows
                             }
+                            <div className="score-box-info">🛈</div>
                         </Popover>
                         <div className="times-box">
                             X
@@ -98,6 +99,7 @@ export default function Game(props) {
                                 + scoreSummary.mults.rotations
                                 + scoreSummary.mults.swaps
                             }
+                            <div className="score-box-info">🛈</div>
                         </Popover>
                     </div>
                     <button className={"btn " + (props.run.canPump() ? 'btn-primary' : 'btn-outline-secondary')} disabled={ props.run.canPump() ? '' : 'disabled' } onClick={ () => {

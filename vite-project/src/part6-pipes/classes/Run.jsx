@@ -124,6 +124,9 @@ export default class Run {
         ) {
             return;
         }
+        if (this.board.cells[index].isTwoAxisSymmetric()) {
+            return;
+        }
         if (save) {
             this.actions.push(new Action('rotate', { index, ccw }));
         }
@@ -149,6 +152,9 @@ export default class Run {
             return;
         }
         let toIndex = parseInt(match[1]);
+        if (fromIndex === toIndex) {
+            return;
+        }
         this._swapCells(fromIndex, toIndex, save);
     }
 
@@ -169,8 +175,12 @@ export default class Run {
     }
 
     isCellRotated(index) {
+        return this.board.cells[index].isRotated();
+        /*
+        // this would only check if the cell was ever rotated, even if it returned to it's initial rotation
         return this.actions.some(action => {
             return action.type === 'rotate' && action.payload.index === index;
         });
+        */
     }
 }

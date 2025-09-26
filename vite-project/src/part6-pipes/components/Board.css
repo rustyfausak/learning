@@ -6,6 +6,7 @@
     background-color: var(--bs-secondary-bg);
     border-radius: 0.5rem;
     z-index: 100;
+    max-width: calc(100dvh * 16 / 9 - 120px);
     .board-grid {
         display: grid;
         flex-grow: 1;

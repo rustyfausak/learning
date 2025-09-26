@@ -59,7 +59,6 @@ export default function Board(props) {
     }
     const boardStyle = {
         gridTemplateColumns: `repeat(${props.run.board.cols + 2}, 1fr)`,
-        gridTemplateRows: `repeat(${props.run.board.rows}, 1fr)`,
     };
     return (
         <div className="board">

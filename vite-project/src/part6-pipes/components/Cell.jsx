@@ -37,6 +37,8 @@ export default function Cell(props) {
             'bottomLeft', 'bottomCenter', 'bottomRight',
         ].forEach(part => {
             const classNames = ["cell-part", "cell-part-" + part];
+            let coverageText = '';
+            let overflowText = '';
             if (props.cell[part].isPipe) {
                 classNames.push("cell-pipe");
                 if (props.cell.hasWater) {
@@ -46,11 +48,18 @@ export default function Cell(props) {
                     }
                     else if (props.cell[part].isConnectable) {
                         classNames.push('cell-pipe-overflow');
+                        overflowText = props.cell.tile.overflowPoints;
                     }
+                }
+                if (part == 'middleCenter') {
+                    coverageText = props.cell.tile.coveragePoints;
                 }
             }
             cellParts.push(
-                <div key={part} className={classNames.join(' ')}></div>
+                <div key={part} className={classNames.join(' ')}>
+                    <div className="cell-part-text cell-part-text-coverage">{coverageText}</div>
+                    <div className="cell-part-text cell-part-text-overflow">{overflowText}</div>
+                </div>
             );
         });
         return (
@@ -59,12 +68,10 @@ export default function Cell(props) {
                 style={ style }
                 {...listeners}
                 {...attributes}
-                className="cell"
+                className={ "cell " + (props.cell.hasWater ? 'watered' : '') }
                 onClick={ props.rotateCell }
                 onContextMenu={ props.rotateCellReverse }
             >
-                { props.run.isCellRotated(props.cellIndex) && <div className="cell-flag cell-flag-topleft text-bg-info"></div> }
-                { props.run.isCellSwapped(props.cellIndex) && <div className="cell-flag cell-flag-topright text-bg-purple"></div> }
                 <div className="cell-grid">
                     { cellParts }
                 </div>

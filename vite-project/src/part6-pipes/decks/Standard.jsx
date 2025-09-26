@@ -5,7 +5,7 @@ export default function Standard() {
     const deck = new Deck();
 
     // Cross
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
         deck.push(new Tile({name: 'Cross', top: true, bottom: true, left: true, right: true}));
     }
 
@@ -15,7 +15,7 @@ export default function Standard() {
     }
 
     // I
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 16; i++) {
         deck.push(new Tile({name: 'Straight', top: true, bottom: true}));
     }
 
@@ -30,7 +30,7 @@ export default function Standard() {
     }
 
     // Blanks
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 0; i++) {
         deck.push(new Tile({name: 'Blank'}));
     }
 

@@ -72,18 +72,13 @@ export default class Cell {
         if (this.rotation === this.initialRotation) {
             return 0;
         }
-        let mod = 4;
-        if (this.isOneAxisSymmetric()) {
-            mod = 2;
-        }
         if (this.isTwoAxisSymmetric()) {
-            mod = 1;
+            return 0;
         }
-        const rotations = Math.min(
-            (mod + (this.rotation - this.initialRotation)) % mod,
-            (mod + (this.initialRotation - this.rotation)) % mod,
-        );
-        return rotations;
+        if (this.isOneAxisSymmetric()) {
+            return (this.rotation % 2) === (this.initialRotation % 2) ? 0 : 1;
+        }
+        return (this.rotation + 4 - this.initialRotation) % 4;
     }
 
     isOneAxisSymmetric() {

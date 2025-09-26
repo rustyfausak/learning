@@ -11,6 +11,7 @@ export default class Tile {
         this.bottom = bottom;
         this.left = left;
         this.right = right;
-        this.points = 10;
+        this.coveragePoints = 10;
+        this.overflowPoints = -5;
     }
 }

@@ -1,5 +1,9 @@
 .popover-container {
     position: relative;
+    z-index: 1000;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
 }
 .popover-trigger {
     cursor: pointer;
@@ -13,11 +17,14 @@
     color: var(--bs-secondary-color);
     border: 2px solid var(--bs-secondary-color);
     border-radius: 0.5rem;
-    box-shadow: 3px 3px 1px 0 var(--bs-tertiary-bg);
+    box-shadow: 3px 3px 1px 0 #111;
     padding: 1rem;
     margin-top: 0.5rem;
-    z-index: 1000;
+    z-index: 2000;
     width: max-content;
     max-width: 200px;
     white-space: normal;
+    h5 {
+        color: #fff;
+    }
 }

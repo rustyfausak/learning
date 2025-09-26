@@ -40,7 +40,6 @@ export default class Board {
      * Reorders and rotates the cells randomly.
      */
     shuffle() {
-        this.empty();
         for (let i = this.cells.length - 1; i > 0; i--) {
             const j = Math.floor(this.randomizer.next() * (i + 1));
             [this.cells[i], this.cells[j]] = [this.cells[j], this.cells[i]];
@@ -70,7 +69,6 @@ export default class Board {
      * @param {boolean} ccw 
      */
     rotateCell(index, ccw = false) {
-        this.empty();
         this.cells[index].rotate(ccw ? -1 : 1);
     }
 
@@ -80,7 +78,6 @@ export default class Board {
      * @param {number} toIndex
      */
     swapCells(fromIndex, toIndex) {
-        this.empty();
         [this.cells[fromIndex], this.cells[toIndex]] = [this.cells[toIndex], this.cells[fromIndex]];
     }
 
@@ -138,7 +135,7 @@ export default class Board {
         let points = 0;
         this.cells.forEach(cell => {
             if (cell.hasWater) {
-                points += cell.tile.points;
+                points += cell.tile.coveragePoints;
             }
         });
         return points;
@@ -151,7 +148,7 @@ export default class Board {
     getOverflowPoints() {
         let points = 0;
         this.cells.forEach(cell => {
-            points -= cell.getNumOverflows();
+            points += cell.getNumOverflows() * cell.tile.overflowPoints;
         });
         return points;
     }
