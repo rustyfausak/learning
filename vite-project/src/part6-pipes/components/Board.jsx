@@ -1,17 +1,7 @@
 import './Board.css';
 import Cell from './Cell.jsx';
-import DroppableCell from './DroppableCell.jsx';
-import { DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 
 export default function Board(props) {
-    const keyboardSensor = useSensor(KeyboardSensor);
-    const pointerSensor = useSensor(PointerSensor, {
-        activationConstraint: {
-            distance: 10,
-        },
-    });
-    const sensors = useSensors(pointerSensor, keyboardSensor);
-
     const cells = [];
     let index = 0;
     for (let y = 0; y < props.run.board.rows; y++) {
@@ -45,12 +35,20 @@ export default function Board(props) {
                 const cell = props.run.board.cells[index];
                 const cellIndex = index;
                 cells.push(
-                    <DroppableCell
-                        key={ key }
+                    <Cell
                         cell={ cell }
                         cellIndex={ cellIndex }
                         run={ props.run }
-                        syncRun={ props.syncRun }
+                        rotateCell={ (e) => {
+                            e.preventDefault();
+                            props.run.rotateCell(cellIndex, false);
+                            props.syncRun();
+                        } }
+                        rotateCellReverse={ (e) => {
+                            e.preventDefault();
+                            props.run.rotateCell(cellIndex, true);
+                            props.syncRun();
+                        } }
                     />
                 );
                 index++;
@@ -62,20 +60,9 @@ export default function Board(props) {
     };
     return (
         <div className="board">
-            <DndContext
-                sensors={ sensors }
-                onDragEnd={ (e) => {
-                    props.run.swapCells(
-                        e.active.id,
-                        e.over.id
-                    );
-                    props.syncRun();
-                } }
-            >
-                <div className="board-grid" style={ boardStyle }>
-                    { cells }
-                </div>
-            </DndContext>
+            <div className="board-grid" style={ boardStyle }>
+                { cells }
+            </div>
         </div>
     );
 }

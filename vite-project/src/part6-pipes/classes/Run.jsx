@@ -47,24 +47,13 @@ export default class Run {
             case 'rotate':
                 this.rotateCell(action.payload.index, !action.payload.ccw, false);
                 break;
-            case 'swap':
-                this._swapCells(action.payload.fromIndex, action.payload.toIndex, false);
-                break;
             default:
                 break;
         }
     }
 
-    getSwapCredits() {
-        return 3;
-    }
-
     getRotationCredits() {
         return 10;
-    }
-
-    getSwapMult() {
-        return 1;
     }
 
     getRotationMult() {
@@ -85,7 +74,6 @@ export default class Run {
             mults: {
                 base: 1,
                 rotations: Math.max(0, (this.getRotationCredits() - this.getNumRotations()) * this.getRotationMult()),
-                swaps: Math.max(0, (this.getSwapCredits() - this.getNumSwaps()) * this.getSwapMult()),
             },
         };
     }
@@ -96,10 +84,6 @@ export default class Run {
 
     getNumRotations() {
         return this.board.getNumRotations();
-    }
-
-    getNumSwaps() {
-        return this.actions.reduce((count, action) => count + (action.type === 'swap' ? 1 : 0), 0);
     }
 
     advanceLevel(level) {
@@ -134,44 +118,8 @@ export default class Run {
         this.pump();
     }
 
-    canSwap() {
-        return true;
-    }
-
-    swapCells(fromId, toId, save = true) {
-        if (!this.canSwap()) {
-            return;
-        }
-        let match = fromId.match(/^draggable-(\d+)$/);
-        if (!match) {
-            return;
-        }
-        let fromIndex = parseInt(match[1]);
-        match = toId.match(/^droppable-(\d+)$/);
-        if (!match) {
-            return;
-        }
-        let toIndex = parseInt(match[1]);
-        if (fromIndex === toIndex) {
-            return;
-        }
-        this._swapCells(fromIndex, toIndex, save);
-    }
-
-    _swapCells(fromIndex, toIndex, save = true) {
-        if (save) {
-            this.actions.push(new Action('swap', { fromIndex, toIndex }));
-        }
-        this.board.swapCells(fromIndex, toIndex);
-        this.pump();
-    }
-
     pump() {
         this.board.pump();
-    }
-
-    isCellSwapped(index) {
-        return this.board.initialIdToIndex[this.board.cells[index].id] !== index;
     }
 
     isCellRotated(index) {

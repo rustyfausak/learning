@@ -85,10 +85,6 @@ export default function Game(props) {
                                                 <th>Rotations</th>
                                                 <td>{ scoreSummary.mults.rotations }</td>
                                             </tr>
-                                            <tr>
-                                                <th>Swaps</th>
-                                                <td>{ scoreSummary.mults.swaps }</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -97,7 +93,6 @@ export default function Game(props) {
                             {
                                 scoreSummary.mults.base
                                 + scoreSummary.mults.rotations
-                                + scoreSummary.mults.swaps
                             }
                             <div className="score-box-info">🛈</div>
                         </Popover>

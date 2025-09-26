@@ -73,15 +73,6 @@ export default class Board {
     }
 
     /**
-     * Swaps two cells in the board.
-     * @param {number} fromIndex
-     * @param {number} toIndex
-     */
-    swapCells(fromIndex, toIndex) {
-        [this.cells[fromIndex], this.cells[toIndex]] = [this.cells[toIndex], this.cells[fromIndex]];
-    }
-
-    /**
      * Converts a 1D index to 2D coordinates (x, y).
      * @param {number} index 
      * @returns {{x: number, y: number}}
