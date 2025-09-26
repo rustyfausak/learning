@@ -23,6 +23,9 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   deploy:
+    defaults:
+      run:
+        working-directory: vite-project
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -35,6 +38,7 @@ jobs:
         with:
           node-version: lts/*
           cache: 'npm'
+          cache-dependency-path: vite-project/package-lock.json
       - name: Install dependencies
         run: npm ci
       - name: Build
