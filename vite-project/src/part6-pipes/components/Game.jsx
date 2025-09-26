@@ -1,20 +1,23 @@
 import './Game.css';
 import Board from './Board.jsx';
+import Popover from './Popover.jsx';
 
 export default function Game(props) {
     if (props.appState !== 'game') {
         return null;
     }
 
-    function pump() {
-        console.log("Pump!");
-    }
+    const scoreSummary = props.run.getScoreSummary();
 
     return (
         <>
             <div className="game">
                 <div className="header">
-                    <h1>Level { props.run.level.name }</h1>
+                    <div>
+                        <h1>Level { props.run.level.name }</h1>
+                        <div>Goal: Connect and score at least <code>{ props.run.getRequiredScore() }</code> points</div>
+                    </div>
+                    
                     <div>
                         <button className="btn" onClick={ props.actionOpenPause }>⚙</button>
                     </div>
@@ -27,24 +30,77 @@ export default function Game(props) {
                 </div>
                 <div className="footer">
                     <div className="d-flex gap-3">
-                        <button className="btn btn-outline-warning" disabled={ props.run.canResetLevel() ? '' : 'disabled' } onClick={ () => {
-                            props.run.resetLevel();
-                            props.syncRun();
-                        } }>Reset</button>
-                        <button className="btn btn-outline-warning" disabled={ props.run.canUndoAction() ? '' : 'disabled' } onClick={ () => {
+                        <button className={"btn " + (props.run.canUndoAction() ? "btn-outline-warning" : 'btn-outline-secondary')} disabled={ props.run.canUndoAction() ? '' : 'disabled' } onClick={ () => {
                             props.run.undoAction();
                             props.syncRun();
-                        } }>↺</button>
+                        } }>Undo</button>
                     </div>
-                    <div className="d-flex gap-3">
-                        <div className="badge text-bg-info">
-                            Rotations: { props.run.getNumRotations() } / { props.run.allowedRotations }
+                    <div className="d-flex gap-2">
+                        <Popover
+                            className="score-box points-box"
+                            content={
+                                <div>
+                                    <h5>Points</h5>
+                                    <table className="score-table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Coverage</th>
+                                                <td>{ scoreSummary.points.coverage }</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Overflows</th>
+                                                <td>{ scoreSummary.points.overflows }</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Connections</th>
+                                                <td>{ scoreSummary.points.connections }</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        >
+                            {
+                                scoreSummary.points.coverage
+                                + scoreSummary.points.connections
+                                + scoreSummary.points.overflows
+                            }
+                        </Popover>
+                        <div className="times-box">
+                            X
                         </div>
-                        <div className="badge text-bg-purple">
-                            Swaps: { props.run.getNumSwaps() } / { props.run.allowedSwaps }
-                        </div>
+                        <Popover
+                            className="score-box mult-box"
+                            content={
+                                <div>
+                                    <h5>Multipliers</h5>
+                                    <table className="score-table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Base</th>
+                                                <td>{ scoreSummary.mults.base }</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Rotations</th>
+                                                <td>{ scoreSummary.mults.rotations }</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Swaps</th>
+                                                <td>{ scoreSummary.mults.swaps }</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        >
+                            {
+                                scoreSummary.mults.base
+                                + scoreSummary.mults.rotations
+                                + scoreSummary.mults.swaps
+                            }
+                        </Popover>
                     </div>
-                    <button className="btn btn-primary" onClick={ () => {
+                    <button className={"btn " + (props.run.canPump() ? 'btn-primary' : 'btn-outline-secondary')} disabled={ props.run.canPump() ? '' : 'disabled' } onClick={ () => {
                         props.run.pump();
                         props.syncRun();
                     } }>Pump!</button>

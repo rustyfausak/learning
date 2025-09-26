@@ -1,8 +1,7 @@
-html, body {
-    font-family: "Space Grotesk", sans-serif;
-}
-.btn, h1 {
-    font-family: "Geo", sans-serif;
+:root {
+    --bs-body-font-family: "VT323", 'Courier New', Courier, monospace;
+    --bs-font-sans-serif: "VT323", 'Courier New', Courier, monospace;
+    --bs-font-monospace: "VT323", 'Courier New', Courier, monospace;
 }
 .text-bg-purple {
     background-color: rgba(164, 13, 240);

@@ -62,7 +62,6 @@
         left: 50%;
         transform: translate(-50%, 0);
         font-size: 12px;
-        font-family: "Geo", sans-serif;
         text-transform: uppercase;
         color: var(--bs-secondary-color);
     }
@@ -76,6 +75,18 @@
             aspect-ratio: 1 / 1;
             &.cell-pipe {
                 background-color: var(--pipe-bg);
+            }
+            &.cell-part-topCenter.cell-pipe-overflow {
+                border-top: 2px dotted var(--bs-warning);
+            }
+            &.cell-part-middleLeft.cell-pipe-overflow {
+                border-left: 2px dotted var(--bs-warning);
+            }
+            &.cell-part-middleRight.cell-pipe-overflow {
+                border-right: 2px dotted var(--bs-warning);
+            }
+            &.cell-part-bottomCenter.cell-pipe-overflow {
+                border-bottom: 2px dotted var(--bs-warning);
             }
         }
     }

@@ -1,11 +1,10 @@
 .board {
     flex-grow: 1;
-    margin: 1rem;
     display: flex;
     align-items: stretch;
-    padding: 1rem;
+    padding: 0 1rem;
     background-color: var(--bs-secondary-bg);
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     z-index: 100;
     .board-grid {
         display: grid;

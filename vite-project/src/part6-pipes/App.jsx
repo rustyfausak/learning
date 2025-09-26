@@ -33,6 +33,10 @@ export default function App() {
         setPopups((oldPopups) => oldPopups.filter(p => p !== name));
     }
 
+    function actionClearPopups() {
+        setPopups(() => []);
+    }
+
     function actionStartGame() {
         setRun(new Run({
             deck: new StandardDeck(),
@@ -43,8 +47,14 @@ export default function App() {
 
     function actionEndGame() {
         setRun(null);
-        setPopups(() => []);
+        actionClearPopups();
         setAppState('splash');
+    }
+    
+    function actionResetLevel() {
+        run.resetLevel();
+        syncRun();
+        actionClearPopups();
     }
 
     function syncRun() {
@@ -81,6 +91,7 @@ export default function App() {
                 popups={ popups }
                 actionClosePause={ () => actionRemovePopup('pause') }
                 actionEndGame={ actionEndGame }
+                actionResetLevel={ actionResetLevel }
             />
         </>
     );

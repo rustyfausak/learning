@@ -1,0 +1,23 @@
+.popover-container {
+    position: relative;
+}
+.popover-trigger {
+    cursor: pointer;
+}
+.popover-content {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bs-secondary-bg);
+    color: var(--bs-secondary-color);
+    border: 2px solid var(--bs-secondary-color);
+    border-radius: 0.5rem;
+    box-shadow: 3px 3px 1px 0 var(--bs-tertiary-bg);
+    padding: 1rem;
+    margin-top: 0.5rem;
+    z-index: 1000;
+    width: max-content;
+    max-width: 200px;
+    white-space: normal;
+}

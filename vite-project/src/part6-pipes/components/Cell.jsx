@@ -36,11 +36,17 @@ export default function Cell(props) {
             'middleLeft', 'middleCenter', 'middleRight',
             'bottomLeft', 'bottomCenter', 'bottomRight',
         ].forEach(part => {
-            const classNames = ["cell-part"];
+            const classNames = ["cell-part", "cell-part-" + part];
             if (props.cell[part].isPipe) {
                 classNames.push("cell-pipe");
                 if (props.cell.hasWater) {
                     classNames.push('bg-water');
+                    if (props.cell[part].isConnected) {
+                        classNames.push('cell-pipe-connected');
+                    }
+                    else if (props.cell[part].isConnectable) {
+                        classNames.push('cell-pipe-overflow');
+                    }
                 }
             }
             cellParts.push(

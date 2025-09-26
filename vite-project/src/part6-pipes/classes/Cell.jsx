@@ -12,11 +12,56 @@ export default class Cell {
         this.topCenter = new CellPart(this.tile.top);
         this.topRight = new CellPart();
         this.middleLeft = new CellPart(this.tile.left);
-        this.middleCenter = new CellPart(this.tile.top || this.tile.bottom || this.tile.left || this.tile.right);
+        this.middleCenter = new CellPart(this.tile.top || this.tile.bottom || this.tile.left || this.tile.right, false);
         this.middleRight = new CellPart(this.tile.right);
         this.bottomLeft = new CellPart();
         this.bottomCenter = new CellPart(this.tile.bottom);
         this.bottomRight = new CellPart();
+    }
+
+    getParts() {
+        return [
+            this.topLeft,
+            this.topCenter,
+            this.topRight,
+            this.middleLeft,
+            this.middleCenter,
+            this.middleRight,
+            this.bottomLeft,
+            this.bottomCenter,
+            this.bottomRight,
+        ];
+    }
+
+    empty() {
+        this.hasWater = false;
+        this.getParts().map((part) => (part.isConnected = false));
+    }
+
+    getNumConnections() {
+        if (!this.hasWater) {
+            return 0;
+        }
+        let num = 0;
+        this.getParts().map((part) => {
+            if (part.isPipe && part.isConnectable && part.isConnected) {
+                num++;
+            }
+        });
+        return num;
+    }
+
+    getNumOverflows() {
+        if (!this.hasWater) {
+            return 0;
+        }
+        let num = 0;
+        this.getParts().map((part) => {
+            if (part.isPipe && part.isConnectable && !part.isConnected) {
+                num++;
+            }
+        });
+        return num;
     }
 
     isRotated() {

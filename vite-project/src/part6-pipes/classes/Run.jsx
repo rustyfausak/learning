@@ -17,8 +17,6 @@ export default class Run {
             randomizer: this.randomizer,
         });
         this.actions = [];
-        this.allowedRotations = 0;
-        this.allowedSwaps = 0;
         this.advanceLevel(new LevelOne());
     }
 
@@ -28,6 +26,10 @@ export default class Run {
 
     canUndoAction() {
         return this.actions.length > 0;
+    }
+
+    canPump() {
+        return this.board.isAllDestinationsWatered();
     }
 
     resetLevel() {
@@ -53,6 +55,45 @@ export default class Run {
         }
     }
 
+    getSwapCredits() {
+        return 3;
+    }
+
+    getRotationCredits() {
+        return 10;
+    }
+
+    getSwapMult() {
+        return 1;
+    }
+
+    getRotationMult() {
+        return 0.25;
+    }
+
+    getConnectedPoints() {
+        return 100;
+    }
+
+    getScoreSummary() {
+        return {
+            points: {
+                coverage: this.board.getCoveragePoints(),
+                connections: this.board.isAllDestinationsWatered() ? this.getConnectedPoints() : 0,
+                overflows: this.board.getOverflowPoints(),
+            },
+            mults: {
+                base: 1,
+                rotations: Math.max(0, (this.getRotationCredits() - this.getNumRotations()) * this.getRotationMult()),
+                swaps: Math.max(0, (this.getSwapCredits() - this.getNumSwaps()) * this.getSwapMult()),
+            },
+        };
+    }
+
+    getRequiredScore() {
+        return this.level.requiredScore;
+    }
+
     getNumRotations() {
         return this.board.getNumRotations();
     }
@@ -68,14 +109,12 @@ export default class Run {
         this.board.sourceIndexesRight = level.sourceIndexesRight;
         this.board.destIndexesLeft = level.destIndexesLeft;
         this.board.destIndexesRight = level.destIndexesRight;
-        this.allowedRotations = level.allowedRotations;
-        this.allowedSwaps = level.allowedSwaps;
         this.actions = [];
         this.pump();
     }
 
     canRotate() {
-        return this.getNumRotations() < this.allowedRotations;
+        return true;
     }
 
     rotateCell(index, ccw = false, save = true) {
@@ -93,7 +132,7 @@ export default class Run {
     }
 
     canSwap() {
-        return this.getNumSwaps() < this.allowedSwaps;
+        return true;
     }
 
     swapCells(fromId, toId, save = true) {
