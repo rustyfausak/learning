@@ -36,6 +36,7 @@ export default function Board(props) {
                 const cellIndex = index;
                 cells.push(
                     <Cell
+                        key={ key }
                         cell={ cell }
                         cellIndex={ cellIndex }
                         run={ props.run }
